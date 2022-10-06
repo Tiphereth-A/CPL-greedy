@@ -1,8 +1,8 @@
-# LectureTemplate
+# CPL-greedy
 
-![GitHub](https://img.shields.io/github/license/Tiphereth-A/LectureTemplate)
+![GitHub](https://img.shields.io/github/license/Tiphereth-A/CPL-greedy)
 
-My template of LaTeX lecture & slice, powered by [metropolis](https://github.com/matze/mtheme)
+LaTeX lecture & slice about greedy algorithm, powered by [metropolis](https://github.com/matze/mtheme)
 
 ## Usage
 
