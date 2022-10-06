@@ -1,0 +1,41 @@
+\begin{frame}[fragile]{例4 - [NOIP2012 提高组] 国王游戏}
+	\begin{itemize}
+		\item 恰逢 H 国国庆, 国王邀请 \(n\) 位大臣来玩一个有奖游戏. 首先, 他让每个大臣在左、右手上面分别写下一个整数 \(a_i\), \(b_i\) (\(i\geq 2\)), 国王自己也在左、右手上各写一个整数 \(a_1\), \(b_1\). 然后, 让这 \(n\) 位大臣排成一排, 国王站在队伍的最前面. 排好队后, 所有的大臣都会获得国王奖赏的若干金币, 每位大臣获得的金币数分别是：排在该大臣前面的所有人的左手上的数的乘积除以他自己右手上的数, 然后向下取整得到的结果
+		\item 国王不希望某一个大臣获得特别多的奖赏, 所以他想请你帮他重新安排一下队伍的顺序, 使得获得奖赏最多的大臣, 所获奖赏尽可能的少. 注意, 国王的位置始终在队伍的最前面
+		\item \(1 \leq n \leq 1\ 000, 0 < a_i, b_i < 10\ 000\)
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{解题思路}
+	\begin{itemize}
+		\item<1-> 令 \(F(i):=\prod_{j=1}^i a_j\), \(F_{\sigma}(i):=\prod_{j=1}^i a_{\sigma(j)}\), 求
+			\[
+				\min_{\sigma\in S_{n+1};\ \sigma(1)=1}\max_{2\leq i\leq n+1}\left\{\left\lfloor\frac{F_{\sigma}(i-1)}{b_{\sigma(i)}}\right\rfloor\right\}
+			\]
+		\item<2->
+			\only<2-3>{假设当前大臣的排列即是最优的, 第 \(i\) 个大臣得到的奖赏是 \(\frac{F(i-1)}{b_i}\)，第 \(i+1\) 个大臣得到的奖赏是 \(\frac{F(i-1)\cdot a_i}{b_{i+1}}\).}
+			\only<3>{若交换二者，则此时的第 \(i\) 个大臣得到的奖赏是 \(\frac{F(i-1)}{b_{i+1}}\)，第 \(i+1\) 个大臣得到的奖赏是 \(\frac{F(i-1)\cdot a_{i+1}}{b_i}\)}
+			\only<4-> {不交换更优当且仅当
+				\[
+					\max\left\{\frac{F(i-1)}{b_i}, \frac{F(i-1)\cdot a_i}{b_{i+1}}\right\} < \max\left\{\frac{F(i-1)}{b_{i+1}}, \frac{F(i-1)\cdot a_{i+1}}{b_i}\right\}
+				\]}
+			\only<5->{即
+				\[
+					\begin{array}{lrll}
+						         & \max\{b_{i+1}, a_ib_i\} & < & \max\{b_i, a_{i+1}b_{i+1}\} \\
+						\implies & a_ib_i                  & < & a_{i+1}b_{i+1}
+					\end{array}
+				\]
+				满足严格弱序关系的条件, 按此排序即可}
+	\end{itemize}
+	\only<6->{
+		\begin{alertblock}{注意}
+			题目的数据范围较大, 使用 C/C++ 编写程序时需预先实现高精度加法和乘法
+		\end{alertblock}}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{实现 (Python)}
+	\includecode[py]{lgp1080.py}
+\end{frame}

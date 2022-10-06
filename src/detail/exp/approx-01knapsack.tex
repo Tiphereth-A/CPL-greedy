@@ -1,0 +1,27 @@
+\begin{frame}[fragile]{例3 - 01背包问题}
+	\begin{itemize}
+		\item 给定 \(N\) 种物品, 每种物品只有一个, 每种物体均有两个属性: 重量 \(w_i\), 价值 \(v_i\). \textbf{不可以分割物品}
+		\item 给定一个背包, 背包最大载重量为 \(W\), 你需要将物品装到背包里, 使得背包里的物品总价值最大
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{近似算法}
+	\begin{itemize}
+		\item<1-> 精确做法是伪多项式时间的, 这里介绍一种基于贪心的近似算法. \only<2->{不妨假设每种物品都能放入背包, 即 \(w_i\leq W,~\forall i\)}
+		\item<3-> 我们先将物品按性价比降序排列 (即按 \(\frac{v_k}{w_k}\) 的大小降序排列), 然后尽可能多地取前 \(k\) 种物品, 则
+			\[
+				\max\left\{v_{k+1},\sum_{i=1}^k v_i\right\}
+			\]
+			即为答案, 令其为 \(S\). 同时我们令最优解为 \(S^*\)
+		\item<4-> \only<4>{显然有
+			\[
+				S^* \leq \sum_{i=1}^k v_i + \frac{v_{k+1}}{w_{k+1}}\left(W-\sum_{i=1}^k w_i\right) < \sum_{i=1}^k v_i + \frac{v_{k+1}}{w_{k+1}}w_{k+1} = \sum_{i=1}^{k+1} v_i
+			\]}
+			\only<5->{从而
+				\[
+					S=\max\left\{v_{k+1},\sum_{i=1}^k v_i\right\}\geq \frac{1}{2} \sum_{i=1}^{k+1} v_i > \frac{1}{2} S^*
+				\]}
+		\item<6-> 也就是说这个贪心算法得到的近似解至少是最优解的一半
+	\end{itemize}
+\end{frame}
