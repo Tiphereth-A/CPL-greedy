@@ -1,7 +1,6 @@
 class Node:
     def __init__(self, a, b):
-        self.a = a
-        self.b = b
+        self.a, self.b = a, b
 
     def __lt__(self, rhs):
         return self.a * self.b < rhs.a * rhs.b
